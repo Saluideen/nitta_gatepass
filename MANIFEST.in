@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include nitta_gatepass *.css
+recursive-include nitta_gatepass *.csv
+recursive-include nitta_gatepass *.html
+recursive-include nitta_gatepass *.ico
+recursive-include nitta_gatepass *.js
+recursive-include nitta_gatepass *.json
+recursive-include nitta_gatepass *.md
+recursive-include nitta_gatepass *.png
+recursive-include nitta_gatepass *.py
+recursive-include nitta_gatepass *.svg
+recursive-include nitta_gatepass *.txt
+recursive-exclude nitta_gatepass *.pyc
