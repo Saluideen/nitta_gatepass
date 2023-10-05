@@ -1,0 +1,291 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{NT}-{RT}-{#######}",
+ "creation": "2023-10-04 11:41:27.879756",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_wyuux",
+  "from_date",
+  "column_break_yzgum",
+  "if_delivery_chellan",
+  "delivery_chellan",
+  "gate_pass",
+  "vendor_details_section",
+  "vendor_name",
+  "vendor_email",
+  "vendor_contact",
+  "product_details_tab",
+  "product",
+  "column_break_gckn2",
+  "item_state",
+  "way_of_return_tab",
+  "way_of_return",
+  "recipient_details_section",
+  "recipient_name",
+  "column_break_x7vqb",
+  "phone",
+  "driver_details_section",
+  "driver_name",
+  "column_break_keyy4",
+  "contact_number",
+  "vehicle_details",
+  "registration_number",
+  "courier_details_section",
+  "courier_company",
+  "column_break_fndk4",
+  "courier_number",
+  "workflow_tab",
+  "workflow",
+  "next_approved_by",
+  "status",
+  "section_break_hrvmz",
+  "department",
+  "division",
+  "department_store"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_details_tab",
+   "fieldtype": "Section Break",
+   "label": "Product Details"
+  },
+  {
+   "fieldname": "product",
+   "fieldtype": "Table",
+   "label": "Product",
+   "options": "Return product Details"
+  },
+  {
+   "fieldname": "way_of_return_tab",
+   "fieldtype": "Tab Break",
+   "label": "Way Of Return"
+  },
+  {
+   "fieldname": "recipient_details_section",
+   "fieldtype": "Section Break",
+   "label": " Recipient Details"
+  },
+  {
+   "fieldname": "recipient_name",
+   "fieldtype": "Data",
+   "label": "Recipient Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Phone",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "driver_details_section",
+   "fieldtype": "Section Break",
+   "label": "Driver Details"
+  },
+  {
+   "fieldname": "vehicle_details",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Details"
+  },
+  {
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "label": "Registration Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vendor_details_section",
+   "fieldtype": "Section Break",
+   "label": "Vendor Details"
+  },
+  {
+   "fetch_from": "gate_pass.vendor",
+   "fieldname": "vendor_name",
+   "fieldtype": "Link",
+   "label": "Name",
+   "options": "Gatepass Vendors",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workflow_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workflow"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_x7vqb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "}",
+   "fieldname": "column_break_keyy4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Phone",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gate_pass",
+   "fieldtype": "Link",
+   "label": "Gate Pass",
+   "options": "Nitta Gatepass"
+  },
+  {
+   "fetch_from": "vendor_name.email",
+   "fieldname": "vendor_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "vendor_name.vendor_phone",
+   "fieldname": "vendor_contact",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_yzgum",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_state",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Gatepass Status",
+   "options": "Select\nPartially Completed\nClose"
+  },
+  {
+   "fieldname": "workflow",
+   "fieldtype": "Table",
+   "label": "Return Workflow",
+   "options": "Gatepass Approval Flow"
+  },
+  {
+   "fetch_from": "gate_pass.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department and Function"
+  },
+  {
+   "fieldname": "next_approved_by",
+   "fieldtype": "Data",
+   "label": "Next Approved By",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_wyuux",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gckn2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "division",
+   "fieldtype": "Link",
+   "label": "Division",
+   "options": "Division"
+  },
+  {
+   "fieldname": "department_store",
+   "fieldtype": "Data",
+   "label": "department_store"
+  },
+  {
+   "fieldname": "way_of_return",
+   "fieldtype": "Select",
+   "label": "Way of Return",
+   "options": "\nBy Hand\nVehicle\nCourier"
+  },
+  {
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "courier_details_section",
+   "fieldtype": "Section Break",
+   "label": "Courier Details"
+  },
+  {
+   "fieldname": "courier_number",
+   "fieldtype": "Data",
+   "label": "Courier Tracking Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_hrvmz",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "column_break_fndk4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "courier_company",
+   "fieldtype": "Data",
+   "label": "Courier Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivery_chellan",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Delivery Chellan Number"
+  },
+  {
+   "default": "0",
+   "fieldname": "if_delivery_chellan",
+   "fieldtype": "Check",
+   "label": "If Delivery Chellan"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-05 10:49:47.148942",
+ "modified_by": "Administrator",
+ "module": "Nitta GatePass",
+ "name": "Nitta Gatepass Return Data",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

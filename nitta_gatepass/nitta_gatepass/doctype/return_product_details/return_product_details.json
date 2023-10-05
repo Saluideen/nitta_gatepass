@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-04 11:44:48.805524",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "work_to_be_done",
+  "item_name",
+  "return_quantity",
+  "quantity",
+  "remaining_quantity",
+  "remarks",
+  "status",
+  "pdt_name",
+  "previous_remaining"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Product",
+   "read_only": 1
+  },
+  {
+   "columns": 3,
+   "fieldname": "work_to_be_done",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Work to be done",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "name"
+  },
+  {
+   "fieldname": "return_quantity",
+   "fieldtype": "Float",
+   "label": "Return Quantity"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_quantity",
+   "fieldtype": "Float",
+   "label": "Remaining Quantity",
+   "non_negative": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "previous_remaining",
+   "fieldtype": "Data",
+   "label": "Previous Remaining"
+  },
+  {
+   "columns": 2,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nAssembled\nCompleted\nPartially Completed"
+  },
+  {
+   "fetch_from": "item.product_name",
+   "fieldname": "pdt_name",
+   "fieldtype": "Data",
+   "label": "pdt name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-10-04 17:09:04.907448",
+ "modified_by": "Administrator",
+ "module": "Nitta GatePass",
+ "name": "Return product Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

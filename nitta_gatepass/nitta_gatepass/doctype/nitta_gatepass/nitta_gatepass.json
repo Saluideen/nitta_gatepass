@@ -1,0 +1,329 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{NT}-{GT}-{######}",
+ "creation": "2023-10-04 11:25:28.348905",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_date",
+  "column_break_ypbv4",
+  "is_emergency",
+  "column_break_es5ht",
+  "vendor",
+  "section_break_887p7",
+  "vendor_name",
+  "column_break_u5e4o",
+  "vendor_contact",
+  "column_break_stx0u",
+  "vendor_email",
+  "product_tab",
+  "item",
+  "way_of_dispatch_tab",
+  "way_of_dispatch",
+  "section_break_jzzm8",
+  "recipient",
+  "column_break_sk4ji",
+  "phone",
+  "driver_details",
+  "driver_name",
+  "column_break_waom2",
+  "contact_number",
+  "vehicle_details_section",
+  "registration_number",
+  "courier_details_section",
+  "courier_number",
+  "column_break_dfwib",
+  "courier_company",
+  "column_break_cdbdb",
+  "workflow_tab",
+  "workflow_name",
+  "workflow",
+  "next_approved_by",
+  "status",
+  "section_break_obkha",
+  "department",
+  "division",
+  "user",
+  "role",
+  "column_break_tqhx6",
+  "section_break_umxaa",
+  "current_department",
+  "gate_pass_no"
+ ],
+ "fields": [
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_ypbv4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_emergency",
+   "fieldtype": "Check",
+   "label": "Is Emergency"
+  },
+  {
+   "fieldname": "vendor",
+   "fieldtype": "Link",
+   "label": "Vendor",
+   "options": "Gatepass Vendors",
+   "reqd": 1
+  },
+  {
+   "fieldname": "way_of_dispatch",
+   "fieldtype": "Select",
+   "label": "Way of Dispatch",
+   "options": "\nBy Hand\nVehicle\nCourier"
+  },
+  {
+   "fieldname": "recipient",
+   "fieldtype": "Data",
+   "label": "Recipient Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "product_tab",
+   "fieldtype": "Tab Break",
+   "label": "Product Details"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Table",
+   "label": "Item",
+   "options": "Nitta item"
+  },
+  {
+   "fieldname": "driver_details",
+   "fieldtype": "Section Break",
+   "label": "Driver Details"
+  },
+  {
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_waom2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Phone",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vehicle_details_section",
+   "fieldtype": "Section Break",
+   "label": "Vehicle Details"
+  },
+  {
+   "fieldname": "registration_number",
+   "fieldtype": "Data",
+   "label": "Registration Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_es5ht",
+   "fieldtype": "Section Break",
+   "label": "Vendor Details"
+  },
+  {
+   "fieldname": "column_break_cdbdb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jzzm8",
+   "fieldtype": "Section Break",
+   "label": "Recipient Details"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sk4ji",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Phone",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workflow_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workflow"
+  },
+  {
+   "fieldname": "workflow",
+   "fieldtype": "Table",
+   "label": "Workflow Details",
+   "options": "Gatepass Approval Flow"
+  },
+  {
+   "fieldname": "next_approved_by",
+   "fieldtype": "Link",
+   "label": "Next Approved By",
+   "options": "Nitta User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workflow_name",
+   "fieldtype": "Link",
+   "label": "Workflow",
+   "options": "Gatepass Workflow",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_obkha",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department and Function"
+  },
+  {
+   "fieldname": "division",
+   "fieldtype": "Link",
+   "label": "Division",
+   "options": "Division"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "Nitta User"
+  },
+  {
+   "fieldname": "role",
+   "fieldtype": "Data",
+   "label": "Role"
+  },
+  {
+   "fieldname": "column_break_tqhx6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "way_of_dispatch_tab",
+   "fieldtype": "Tab Break",
+   "label": "Way of Dispatch"
+  },
+  {
+   "fieldname": "section_break_umxaa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "current_department",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Current Department"
+  },
+  {
+   "fieldname": "courier_details_section",
+   "fieldtype": "Section Break",
+   "label": "Courier Details"
+  },
+  {
+   "fieldname": "courier_number",
+   "fieldtype": "Data",
+   "label": "Courier Tracking Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dfwib",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "courier_company",
+   "fieldtype": "Data",
+   "label": "Courier Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gate_pass_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Gatepass No"
+  },
+  {
+   "fetch_from": "vendor.vendor_name",
+   "fieldname": "vendor_name",
+   "fieldtype": "Data",
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_u5e4o",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "vendor.vendor_phone",
+   "fieldname": "vendor_contact",
+   "fieldtype": "Phone",
+   "label": "Contact Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_887p7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_stx0u",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "vendor.email",
+   "fieldname": "vendor_email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Nitta Gatepass Return Data",
+   "link_fieldname": "gate_pass"
+  }
+ ],
+ "modified": "2023-10-05 10:49:11.670152",
+ "modified_by": "Administrator",
+ "module": "Nitta GatePass",
+ "name": "Nitta Gatepass",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
