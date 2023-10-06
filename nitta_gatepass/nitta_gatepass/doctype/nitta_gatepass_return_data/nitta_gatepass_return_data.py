@@ -110,7 +110,8 @@ class NittaGatepassReturnData(Document):
 						'department': transition['department'],
 						'status':'Pending',
 						'role':transition['role'],
-						'division':transition['division']
+						'division':transition['division'],
+						'alert_in_days':transition['alert_in_days']
 						})
 		
 
@@ -135,7 +136,8 @@ class NittaGatepassReturnData(Document):
 
 
 	def update_workflow(self):
-		
+		sendMail()
+
 		self.current_approval_level=0
 		self.max_approval_level=0
 		self.status="Initiated"
@@ -194,7 +196,7 @@ class NittaGatepassReturnData(Document):
 @frappe.whitelist()
 def get_workflow_transition(workflow_name,department,division):
 	print("workflow",department,division)
-	transitions=frappe.get_all('Nitta Workflow Transition',filters={'parent':workflow_name,'parenttype':'Gatepass Workflow'},fields=['role','department'],order_by='idx')	
+	transitions=frappe.get_all('Nitta Workflow Transition',filters={'parent':workflow_name,'parenttype':'Gatepass Workflow'},fields=['role','department','alert_in_days'],order_by='idx')	
 	data=[]
 	for transition in transitions:
 		if transition.department=="FROM NOTE":
@@ -209,7 +211,7 @@ def get_workflow_transition(workflow_name,department,division):
 		""",values={'role': transition.role, 'division': division, 'department': employee_department},as_dict=1)	
 		print("user",user_role)
 		if user_role:  # Check if user_role list is not empty
-			data.append({'role': user_role[0].role,'division': user_role[0].division, 'user': user_role[0].employee, 'department': user_role[0].department})
+			data.append({'role': user_role[0].role,'division': user_role[0].division, 'user': user_role[0].employee, 'department': user_role[0].department,'alert_in_days':transition.alert_in_days})
 
 	
 	
@@ -331,7 +333,7 @@ def delay_reminder():
 				"items":gate_pass_list,
 				"gate_pass_link":get_url_to_form('Nitta Gatepass',gate_pass_info['name'])
 				}
-		print("gate_pass_link",get_url_to_form('Nitta Gatepass', gate_pass_info['name']))
+	
 		subject = "Delayed Gate Pass Information for Division: " + division
 		
 		frappe.sendmail(template='finance',
@@ -362,7 +364,29 @@ def delay_reminder():
 		)
 	
 
-
+# pending reminder mail
+@frappe.whitelist()
+def sendMail():
+	pending_gate_pass=frappe.db.sql("""select gatepass.name,gatepass.user,gatepass.next_approved_by,workflow.status from   `Nitta Gatepass Return Data` gatepass inner join
+ 		`tabGatepass Approval Flow` workflow on gatepass.name=workflow.parent and gatepass.next_approved_by=workflow.user where workflow.status='Pending'
+		AND DATEDIFF(CURDATE(), workflow.assigned_date) > alert_in_days""",as_dict=1)
+	is_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
+	gate_passes_by_user = {}
+	for gate_pass in pending_gate_pass:
+		workflow_user = gate_pass['user']
+		if workflow_user not in gate_passes_by_user:
+			gate_passes_by_user[workflow_user] = []
+		gate_passes_by_user[workflow_user].append(gate_pass)
+	# Send emails to users
+	for user, gate_passes in gate_passes_by_user.items():
+		if is_send_mail:
+			gate_pass_names = [gp['name'] for gp in gate_passes]
+			doc_links = [get_url_to_form('Nitta Gatepass', gp['name']) for gp in gate_passes]
+			args = {
+				"message": "You have some pending notes for approval",
+				"doc_links": doc_links,
+			}
+			frappe.sendmail(template='reminder', subject="Note Reminder", recipients=user, args=args, header=['Gatepass Reminder', 'green'])
 
 def get_finance_head_email(division):
 	finance_head_email= frappe.db.sql("""select em.email from `tabNitta User` em 

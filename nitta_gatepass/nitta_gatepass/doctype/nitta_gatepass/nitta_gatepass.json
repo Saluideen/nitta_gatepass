@@ -303,7 +303,7 @@
    "link_fieldname": "gate_pass"
   }
  ],
- "modified": "2023-10-05 10:49:11.670152",
+ "modified": "2023-10-06 11:51:25.569837",
  "modified_by": "Administrator",
  "module": "Nitta GatePass",
  "name": "Nitta Gatepass",
@@ -325,5 +325,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

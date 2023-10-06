@@ -38,6 +38,7 @@ frappe.ui.form.on('Nitta Gatepass', {
   
 	  // hide is_emergency field
 	  frm.events.hide_emergency(frm);
+	 
   
 	  // Initiate only creator. initiate button function
 	  frm.events.initiate(frm);
@@ -50,6 +51,10 @@ frappe.ui.form.on('Nitta Gatepass', {
 	  frm.events.approve_reject(frm);
 	  // add preview
 	  frm.events.add_preview(frm);
+	   //apply workflow style
+	frm.events.apply_workflow_table_style(frm)
+	  // add default value to other attachments and disable attachment button
+		frm.events.attachment_settings(frm)
   
 	  
 	},
@@ -150,7 +155,7 @@ frappe.ui.form.on('Nitta Gatepass', {
    
    
 	set_employee_filter: function (frm) {
-	  frm.fields_dict["workflow"].grid.get_field("employee").get_query =
+	  frm.fields_dict["workflow"].grid.get_field("user").get_query =
 		function (doc, cdt, cdn) {
 		  var child = locals[cdt][cdn];
   
@@ -158,7 +163,7 @@ frappe.ui.form.on('Nitta Gatepass', {
 			query:
 			  "nitta_gatepass.nitta_gatepass.doctype.gatepass_workflow.gatepass_workflow.get_employee",
 			filters: {
-			  division: child.division,
+			  division: frm.doc.division,
 			  department: child.department,
 			  role: child.role,
 			},
@@ -279,6 +284,44 @@ frappe.ui.form.on('Nitta Gatepass', {
 		frm.set_df_property("phone", "read_only", 1);
   
 	  }
+	},
+	attachment_settings: function (frm) {
+		//disable sidebar attachments section
+		$(".form-attachments").hide();
+	},
+	apply_workflow_table_style: function (frm) {
+		$(".frappe-control[data-fieldname='workflow']")
+			.find(".grid-body")
+			.find("[data-fieldname='status']")
+			.each(function () {
+				if ($(this).text() === "Approved") {
+					$(this).css({
+						"color": "#05B01F",
+						"background-color": "#D9F0D8",
+						"font-weight": "bold"
+					});
+				}
+				else if ($(this).text() === "Rejected") {
+					$(this).css({
+						"color": "#B00505",
+						"background-color": "#F0D8D8",
+						"font-weight": "bold"
+					});
+				} else if ($(this).text() === "Modify") {
+					$(this).css({
+						"color": "#FFA500",
+						"background-color": "#FBFCDE",
+						"font-weight": "bold"
+					});
+				}
+				else {
+					$(this).css({
+						"color": "black",
+						"background-color": "#FFFFFF",
+						"font-weight": "bold"
+					});
+				}
+			});
 	},
 	approve_reject: function (frm) {
 	  if (

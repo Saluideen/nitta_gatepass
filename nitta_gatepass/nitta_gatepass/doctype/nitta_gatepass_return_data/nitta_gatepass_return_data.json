@@ -265,7 +265,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-05 10:49:47.148942",
+ "modified": "2023-10-06 11:51:41.185154",
  "modified_by": "Administrator",
  "module": "Nitta GatePass",
  "name": "Nitta Gatepass Return Data",
@@ -287,5 +287,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

@@ -1,0 +1,15 @@
+<p>{{_("Hi")}},</p>
+{% for msg in message %}
+ <p style="margin: 30px 0px;">
+
+   <b>Pending notes on {{msg.name}}</b>
+   <br/>
+   {% for note in msg.notes %}
+   &nbsp;&nbsp;
+    {{loop.index}}
+     &nbsp;&nbsp;
+     {{note.note_no}} 
+     <br/>
+     {% endfor %}
+</p>
+{% endfor %}

@@ -129,13 +129,19 @@ app_license = "l"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 #	"all": [
 #		"nitta_gatepass.tasks.all"
 #	],
-#	"daily": [
-#		"nitta_gatepass.tasks.daily"
-#	],
+	"daily": [
+#		"daily": [
+		"nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.emergency_dispatch_reminder",
+		"nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.delay_reminder",
+        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.send_pending_mail",
+        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.sendmail",
+	
+	],
+# 
 #	"hourly": [
 #		"nitta_gatepass.tasks.hourly"
 #	],
@@ -145,7 +151,7 @@ app_license = "l"
 #	"monthly": [
 #		"nitta_gatepass.tasks.monthly"
 #	],
-# }
+}
 
 # Testing
 # -------

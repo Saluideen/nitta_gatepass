@@ -1,0 +1,14 @@
+<p>{{_("Hi")}},</p>
+
+
+
+<p>{{message}}. &nbsp;&nbsp;</p>
+<div style="margin-top: 20px;">
+    <a href="{{ doc_link }}" rel="nofollow" style="padding: 8px 20px; background-color: #7575FF; color: #fff; border-radius: 4px; text-decoration: none; line-height: 1; border-bottom: 3px solid rgba(0, 0, 0, 0.2); font-size: 14px; font-weight: 200;">Open</a>
+</div>
+
+<style>
+    td {
+      padding-right: 10px; 
+    }
+</style>

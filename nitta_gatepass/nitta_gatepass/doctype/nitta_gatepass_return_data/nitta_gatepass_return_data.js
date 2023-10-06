@@ -26,6 +26,10 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
     // filter for workflow employee
     frm.events.set_employee_filter(frm);
     //  hide child table add row button
+      //apply workflow style
+	frm.events.apply_workflow_table_style(frm)
+  // add default value to other attachments and disable attachment button
+  frm.events.attachment_settings(frm)
    
     cur_frm.fields_dict ['product'].grid.wrapper.find ('.grid-add-row').hide (); 
     cur_frm.fields_dict ['product'].grid.wrapper.find ('.grid-remove-rows').hide ();
@@ -161,7 +165,7 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
     }
   },
   set_employee_filter: function (frm) {
-    frm.fields_dict["workflow"].grid.get_field("employee").get_query =
+    frm.fields_dict["workflow"].grid.get_field("user").get_query =
       function (doc, cdt, cdn) {
         var child = locals[cdt][cdn];
 
@@ -169,7 +173,7 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
           query:
             "nitta_gatepass.nitta_gatepass.doctype.gatepass_workflow.gatepass_workflow.get_employee",
           filters: {
-            division: child.division,
+            division: frm.doc.division,
             department: child.department,
             role: child.role,
           },
@@ -272,6 +276,44 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
       });
     }
   },
+  attachment_settings: function (frm) {
+		//disable sidebar attachments section
+		$(".form-attachments").hide();
+	},
+	apply_workflow_table_style: function (frm) {
+		$(".frappe-control[data-fieldname='workflow']")
+			.find(".grid-body")
+			.find("[data-fieldname='status']")
+			.each(function () {
+				if ($(this).text() === "Approved") {
+					$(this).css({
+						"color": "#05B01F",
+						"background-color": "#D9F0D8",
+						"font-weight": "bold"
+					});
+				}
+				else if ($(this).text() === "Rejected") {
+					$(this).css({
+						"color": "#B00505",
+						"background-color": "#F0D8D8",
+						"font-weight": "bold"
+					});
+				} else if ($(this).text() === "Modify") {
+					$(this).css({
+						"color": "#FFA500",
+						"background-color": "#FBFCDE",
+						"font-weight": "bold"
+					});
+				}
+				else {
+					$(this).css({
+						"color": "black",
+						"background-color": "#FFFFFF",
+						"font-weight": "bold"
+					});
+				}
+			});
+	},
   department_filter: function (frm) {
     frm.set_query("gate_pass", function () {
       return {
