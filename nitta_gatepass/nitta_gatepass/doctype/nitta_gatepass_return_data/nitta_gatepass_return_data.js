@@ -338,28 +338,23 @@ frappe.ui.form.on("Return product Details", {
     }
   },
   status: function (frm, cdt, cdn) {
-    var row = locals[cdt][cdn];
-    let status = undefined;
-    let i = frm.doc.product.findIndex((el) => {
-      return el.status == "Partially Completed";
-    });
+    let status = "Close"; // Default status is "Close" when all items are "Completed" or "Assembled"
+    const product = frm.doc.product;
 
-    let close = frm.doc.product.findIndex((el) => {
-      return el.status == "Completed" || el.status == "Assembled";
-    });
-    let id = frm.doc.product.findIndex((el) => {
-      return el.status == "";
-    });
-    if (i > -1) {
-      status = "Partially Completed";
-    } else if (id > -1) {
-      status = "Select";
-    } else {
-      status = "Close";
-    }
+    // Check if there's any item with "Partially Completed" status
+    const partiallyCompleted = product.some((el) => el.status === "Partially Completed");
 
    
-    frm.doc.item_state = status;
+    const Select = product.every((el) => el.status === "");
+
+    if (partiallyCompleted) {
+        status = "Partially Completed"; // If at least one item is "Partially Completed"
+    } else if (Select) {
+        status = "Select"; 
+    }
+
+    frm.set_value("item_state", status);
     frm.refresh_field("item_state");
-  },
+}
+
 });

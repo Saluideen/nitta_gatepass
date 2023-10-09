@@ -137,8 +137,8 @@ scheduler_events = {
 #		"daily": [
 		"nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.emergency_dispatch_reminder",
 		"nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.delay_reminder",
-        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.send_pending_mail",
-        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.sendmail",
+        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.send_pendingMail",
+        "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.sendMail",
 	
 	],
 # 

@@ -36,9 +36,9 @@ class NittaGatepass(Document):
 					frappe.throw("Please Select Way of Dispatch")
 
 		# Validation for expected delivery date
-		for item in self.item:
-			if item.expected_delivery_date < frappe.utils.today():
-				frappe.throw("Expected Delivery Date cannot be lesser than the current date for item {}".format(item.pdt_name))
+		# for item in self.item:
+		# 	if item.expected_delivery_date < frappe.utils.today():
+		# 		frappe.throw("Expected Delivery Date cannot be lesser than the current date for item {}".format(item.pdt_name))
 
 
 		
@@ -184,12 +184,25 @@ class NittaGatepass(Document):
 					"vendor":self.vendor,
 					"vendor_email":self.vendor_email,
 					"items":self.item,
-					"gatepass":self.name
+					"gatepass":self.name,
+					"gate_pass_link":get_url_to_form('Nitta Gatepass',self.name)
 				}
 				self.is_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
 				if(self.is_send_mail):
 					frappe.sendmail(template='dispatched',recipients=self.vendor_email,subject="Material Dispatched",args=args)
+					frappe.sendmail(template='initiator_mail',recipients=self.user,subject="Material Dispatched",args=args)
 			notify_Initiator(self.user,"Nitta Gatepass",self.name)
+			args={
+					"message":"Material Dispatched",
+					"vendor":self.vendor,
+					"vendor_email":self.vendor_email,
+					"items":self.item,
+					"gatepass":self.name,
+					"gate_pass_link":get_url_to_form('Nitta Gatepass',self.name)
+				}
+			frappe.sendmail(template='initiator_mail',recipients=self.user,subject="Material Dispatched",args=args)
+			
+			
 			if current_user_index>0:
 				self.update_updated_date(current_user_index)
 			
@@ -519,7 +532,7 @@ def generate_print(doctype,docname):
 def sendMail():
 	pending_gate_pass=frappe.db.sql("""select gatepass.name,gatepass.user,gatepass.next_approved_by,workflow.status from   `tabNitta Gatepass` gatepass inner join
  		`tabGatepass Approval Flow` workflow on gatepass.name=workflow.parent and gatepass.next_approved_by=workflow.user where workflow.status='Pending' 
-		AND DATEDIFF(CURDATE(), workflow.assigned_date) > alert_in_days""",as_dict=1)
+		AND DATEDIFF(CURDATE(), workflow.assigned_date) >= alert_in_days""",as_dict=1)
 	is_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
 	user_items = {}
 	# Iterate through the delayed_gate_pass results
@@ -543,11 +556,18 @@ def sendMail():
 	
 	for user_email, items_list in user_items.items():
 		
-		args={
-				"message": "You have some pending gatepass for approval",
-				"items":items_list,
-				"gate_pass_link":get_url_to_form('Nitta Gatepass',gate_pass_info['name'])
+		args = {
+			"message": "You have some pending  for approval",
+			
+			"items": [
+				{
+					"gatepass": item["gatepass"],
+					"gate_pass_link": get_url_to_form('Nitta Gatepass', item["gatepass"]),
+					
 				}
+				for item in items_list
+			]
+    			}
 		frappe.sendmail(template='reminder', subject="Gatepass Pending Reminder", recipients=user_email, args=args, header=['Gatepass Reminder', 'green'])
 
 		

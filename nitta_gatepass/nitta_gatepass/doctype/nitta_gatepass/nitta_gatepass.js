@@ -135,7 +135,7 @@ frappe.ui.form.on('Nitta Gatepass', {
 			} else {
 			  frappe.call({
 				method:
-				  "nitta.nitta_gate_pass.doctype.nitta_gate_pass.nitta_gate_pass.remove_file_backgroud",
+				  "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.remove_file_backgroud",
 				args: {
 				  files: [file_doc.name],
 				},
