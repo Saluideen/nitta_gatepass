@@ -51,6 +51,8 @@ frappe.ui.form.on('Nitta Gatepass', {
 	  frm.events.approve_reject(frm);
 	  // add preview
 	  frm.events.add_preview(frm);
+	  // add print
+	  frm.events.add_print(frm);
 	   //apply workflow style
 	frm.events.apply_workflow_table_style(frm)
 	  // add default value to other attachments and disable attachment button
@@ -373,6 +375,30 @@ frappe.ui.form.on('Nitta Gatepass', {
 		}
 	  }
 	},
+	add_print: function (frm) {
+		if(!frm.is_new()){
+		  frm.add_custom_button(__("Print"), function () {
+			// Generate and show the PDF using the "nitta" print format
+			frappe.call({
+			  method:
+				"nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass.nitta_gatepass.generate_print",
+			  args: {
+				doctype: frm.doctype,
+				docname: frm.docname,
+			  },
+			  freeze: true,
+			  callback: (r) => {
+				window.open("http://" + window.location.host + "/" + r.message);
+			  },
+			  error: (r) => {
+				frappe.msgprint(r);
+			  },
+			});
+		  });
+	
+		}
+	  
+	  },
 	
 	add_preview: function (frm) {
 	  if(!frm.is_new()){

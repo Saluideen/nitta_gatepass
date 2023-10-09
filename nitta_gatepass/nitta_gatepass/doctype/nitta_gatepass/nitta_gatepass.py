@@ -498,6 +498,22 @@ def generate_preview(doctype,docname):
     pdf_file_url = f'/files/{pdf_file_name}'
     return pdf_file_url
 
+@frappe.whitelist()
+def generate_print(doctype,docname):
+
+	# Creating and saving the Print format to public files folder
+    html = frappe.get_print(doctype, docname, 'Gatepass Print Format', doc=None)
+    pdf = get_pdf(html)
+    
+    # Define the file name for the generated PDF
+    pdf_file_name = f'{docname}_print.pdf'
+    
+    # Save the PDF file to a public location
+    write_file(pdf, pdf_file_name, is_private=0)
+    
+    # Return the URL of the generated PDF for the user to access
+    pdf_file_url = f'/files/{pdf_file_name}'
+    return pdf_file_url
 # pending reminder mail
 @frappe.whitelist()
 def sendMail():

@@ -85,6 +85,18 @@ class NittaGatepassReturnData(Document):
 			
 			self.update_workflow()
 			add_share(self.doctype, self.name, user=self.next_approved_by, read=1, write=1, submit=0, share=1, everyone=0, notify=0)
+			# Send mail
+			self.is_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
+			if(self.is_send_mail):
+				user_name = frappe.get_cached_value("User", frappe.session.user, "full_name")
+				doc_link = get_url_to_form('Nitta Gatepass Return Data',self.name)
+				args={
+					"message":user_name+" Requested to approve "+self.name+", Department:"+self.department,
+					"doc_link":{"doc_link":doc_link,'name':self.name},
+					"header":['Request for Approval of '+self.name, 'green'],
+					}
+				frappe.sendmail(template='assign_to',subject="Request for Approval of "+self.name,recipients=[self.next_approved_by],args=args)
+			
 			notify_assignment(self.next_approved_by,'Nitta Gatepass Return Data',self.name,self.status)
 
 
@@ -367,26 +379,38 @@ def delay_reminder():
 # pending reminder mail
 @frappe.whitelist()
 def sendMail():
-	pending_gate_pass=frappe.db.sql("""select gatepass.name,gatepass.user,gatepass.next_approved_by,workflow.status from   `Nitta Gatepass Return Data` gatepass inner join
+	pending_gate_pass=frappe.db.sql("""select gatepass.name,gatepass.next_approved_by,workflow.status from  `tabNitta Gatepass Return Data` gatepass inner join
  		`tabGatepass Approval Flow` workflow on gatepass.name=workflow.parent and gatepass.next_approved_by=workflow.user where workflow.status='Pending'
 		AND DATEDIFF(CURDATE(), workflow.assigned_date) > alert_in_days""",as_dict=1)
-	is_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
-	gate_passes_by_user = {}
-	for gate_pass in pending_gate_pass:
-		workflow_user = gate_pass['user']
-		if workflow_user not in gate_passes_by_user:
-			gate_passes_by_user[workflow_user] = []
-		gate_passes_by_user[workflow_user].append(gate_pass)
-	# Send emails to users
-	for user, gate_passes in gate_passes_by_user.items():
-		if is_send_mail:
-			gate_pass_names = [gp['name'] for gp in gate_passes]
-			doc_links = [get_url_to_form('Nitta Gatepass', gp['name']) for gp in gate_passes]
-			args = {
-				"message": "You have some pending notes for approval",
-				"doc_links": doc_links,
-			}
-			frappe.sendmail(template='reminder', subject="Note Reminder", recipients=user, args=args, header=['Gatepass Reminder', 'green'])
+	s_send_mail=frappe.get_doc('Nitta Constant').enable_email_notifications
+	user_items = {}
+	# Iterate through the delayed_gate_pass results
+	for gate_pass_info in pending_gate_pass:
+		
+		user_email = gate_pass_info["next_approved_by"]
+		
+		item_info = {
+			"gatepass":gate_pass_info["name"],
+			
+		}
+
+		# Check if the user_email already exists in the vendor_items dictionary
+		if user_email in user_items:
+			# If it exists, append the item info to the existing list of items
+			user_items[user_email].append(item_info)
+		else:
+			# If it doesn't exist, create a new entry in the dictionary
+			user_items[user_email] = [item_info]
+	
+	
+	for user_email, items_list in user_items.items():
+		
+		args={
+				"message": "You have some pending  for approval",
+				"items":items_list,
+				"gate_pass_link":get_url_to_form('Nitta Gatepass Return Data',gate_pass_info['name'])
+				}
+		frappe.sendmail(template='reminder', subject=" Pending Reminder", recipients=user_email, args=args, header=['Gatepass Reminder', 'green'])
 
 def get_finance_head_email(division):
 	finance_head_email= frappe.db.sql("""select em.email from `tabNitta User` em 
