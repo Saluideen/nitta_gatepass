@@ -148,7 +148,6 @@ class NittaGatepassReturnData(Document):
 
 
 	def update_workflow(self):
-		# delay_reminder()
 		send_pendingMail()
 
 		self.current_approval_level=0
@@ -418,11 +417,7 @@ def send_pendingMail():
 	
 	for user_email, items_list in user_items.items():
 		
-		# args={
-		# 		"message": "You have some pending  for approval",
-		# 		"items":items_list,
-		# 		"gate_pass_link":get_url_to_form('Nitta Gatepass Return Data',gate_pass_info['name'])
-		# 		}
+		
 		args = {
 			"message": "You have some pending  for approval",
 			
