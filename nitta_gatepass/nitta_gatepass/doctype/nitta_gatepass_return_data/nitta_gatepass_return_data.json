@@ -168,6 +168,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "Partially Completed",
    "fieldname": "item_state",
    "fieldtype": "Select",
    "hidden": 1,
@@ -260,12 +261,12 @@
    "default": "0",
    "fieldname": "if_delivery_chellan",
    "fieldtype": "Check",
-   "label": "If Delivery Chellan"
+   "label": "Is Delivery Chellan"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-10-06 11:51:41.185154",
+ "modified": "2023-10-09 17:08:15.762780",
  "modified_by": "Administrator",
  "module": "Nitta GatePass",
  "name": "Nitta Gatepass Return Data",

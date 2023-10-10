@@ -322,7 +322,7 @@ def delay_reminder():
 			# If it exists, append the item info to the existing list of items
 			vendor_items[vendor_email].append(item_info)
 		else:
-			# If it doesn't exist, create a new entry in the dictionary
+			
 			vendor_items[vendor_email] = [item_info]
 
 		if division in division_group:

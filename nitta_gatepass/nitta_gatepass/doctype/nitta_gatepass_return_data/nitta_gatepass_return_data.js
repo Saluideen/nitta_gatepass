@@ -57,6 +57,7 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
         );
       });
     }
+    
   },
   // update delivery chellan
   if_delivery_chellan: function (frm) {
@@ -114,6 +115,9 @@ frappe.ui.form.on('Nitta Gatepass Return Data', {
 
   // insert gate pass material details in return document
   gate_pass: function (frm) {
+    // Clear the existing rows in the 'product' child table
+    frm.clear_table('product');
+    
     frappe.call({
       method:
         "nitta_gatepass.nitta_gatepass.doctype.nitta_gatepass_return_data.nitta_gatepass_return_data.get_gatepass_details",
